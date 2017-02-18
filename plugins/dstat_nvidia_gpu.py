@@ -24,13 +24,11 @@ class dstat_plugin(dstat):
 
     def vars(self):
         ret = ['total']
-        """
-        #Uncomment to get statistics fo individual gpus.
-        import pynvml
-        deviceCount = pynvml.nvmlDeviceGetCount()
-        for i in range(0, deviceCount):
-            ret.append('gpu%d' % i)
-        """
+        if op.full:
+            import pynvml
+            deviceCount = pynvml.nvmlDeviceGetCount()
+            for i in range(0, deviceCount):
+                ret.append('gpu%d' % i)
         return ret
 
     def extract(self):
